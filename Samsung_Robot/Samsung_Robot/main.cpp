@@ -39,22 +39,10 @@ public:
 	//Robot(int, int, command*, int);
 	Robot();
 	void RobotInit(int, int, command*, int);
-	void getRobot();
 	void doCommand(maps, spindles);
 	
 };
 
-void printMap(maps myMap)
-{
-	for (int i = 0; i < myMap.row; i++)
-	{
-		for (int j = 0; j < myMap.col; j++)
-		{
-			cout << myMap.mapData[i][j] << " ";
-		}
-		cout << endl;
-	}
-}
 
 int main()
 {
@@ -139,21 +127,9 @@ int main()
 		robot[i].doCommand(myMap[i], mySpindle[i]);
 		cout << endl;
 	}
-	system("pause");
+	//system("pause");
 	return 0;
 }
-
-//Robot::Robot(int X, int Y, command *robotCommand, int robotCommandSize)
-//{
-//	this->X = X;
-//	this->Y = Y;
-//	this->robotCommand = new command[robotCommandSize];
-//	this->robotCommandSize = robotCommandSize;
-//	for (int i = 0; i < robotCommandSize; i++)
-//	{
-//		this->robotCommand[i] = robotCommand[i];
-//	}
-//}
 
 Robot::Robot()
 {
@@ -169,14 +145,6 @@ void Robot::RobotInit(int X, int Y, command *robotCommand, int robotCommandSize)
 	for (int i = 0; i < robotCommandSize; i++)
 	{
 		this->robotCommand[i] = robotCommand[i];
-	}
-}
-
-void Robot::getRobot()
-{
-	for (int i = 0; i < robotCommandSize; i++)
-	{
-		cout << robotCommand[i].direction<<endl;
 	}
 }
 
@@ -231,6 +199,12 @@ void Robot::doCommand(maps myMap, spindles mySpindle)
 		
 		switch (robotCommand[i].direction)
 		{
+			/*
+				4. plus myMap data to myPoint
+				5. change myMap data --> 0
+				5.1 if myMap data is -1(obstacle) stop
+				5.2 if out of range stop
+			*/
 		case 'N':
 			while (movePoint != 0)
 			{
@@ -313,11 +287,6 @@ void Robot::doCommand(maps myMap, spindles mySpindle)
 			}
 			break;
 		}
-
-		//printMap(myMap);
-		/*cout << "My Point: " << myPoint << endl;
-		cout << "X: " << X << " Y: " << Y << endl;*/
-		//system("pause");
 	}
 	cout << myPoint << " " << X + 1 << " " << Y + 1;
 
